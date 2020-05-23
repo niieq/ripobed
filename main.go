@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"html/template"
 
 	"github.com/gorilla/mux"
 	"net/http"
@@ -21,6 +21,7 @@ func main() {
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 
-	fmt.Fprintf(w, "Hello World!")
+	tmpl := template.Must(template.ParseFiles("templates/home.html"))
+	tmpl.Execute(w, nil)
 
 }
