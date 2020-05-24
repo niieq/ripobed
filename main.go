@@ -11,6 +11,7 @@ func mainRouter() *mux.Router {
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeHandler)
 	r.HandleFunc("/biography", biographHandler)
+	r.HandleFunc("/tributes", tributeHandler)
 
 	staticFileDirectory := http.Dir("./static/")
 
@@ -38,5 +39,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 func biographHandler(w http.ResponseWriter, r *http.Request) {
 
 	tmpl := template.Must(template.ParseFiles("templates/biography.html"))
+	tmpl.Execute(w, nil)
+}
+
+func tributeHandler(w http.ResponseWriter, r *http.Request) {
+
+	tmpl := template.Must(template.ParseFiles("templates/tribute.html"))
 	tmpl.Execute(w, nil)
 }
