@@ -110,7 +110,7 @@ func tributeHandler(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		var Tributes []Tribute
-		db.Find(&Tributes)
+		db.Order("id desc").Find(&Tributes)
 
 		tmpl := template.Must(template.ParseFiles("templates/tribute.html"))
 		tmpl.Execute(w, Tributes)
