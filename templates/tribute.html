@@ -19,7 +19,7 @@
 <body style="background-color: #222222">
 	
 	<nav class="navbar navbar-expand-lg container">
-		  <a class="navbar-brand" href="#"><i style="color: #FFFFFF;">RIP</i> <span style="color: #FF9526;">OBED</span></a>
+		  <a class="navbar-brand" href="/"><i style="color: #FFFFFF;">RIP</i> <span style="color: #FF9526;">OBED</span></a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -34,7 +34,7 @@
 		        <a class="nav-link" style="color: #FFFFFF;" href="/tributes">Tributes</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" style="color: #FFFFFF;" href="#">Gallery</a>
+		        <a class="nav-link" style="color: #FFFFFF;" href="/#gallery">Gallery</a>
 		      </li>
 		    </ul>
 		    
@@ -51,9 +51,13 @@
 			</div>
 		</div>
 
-		{{ range . }}
+		<div class="infinite-container">
+			
+		
 
-			<div class="row">
+		{{ range .Tributes }}
+
+			<div class="row infinite-item">
 				<div class="col-sm-5">
 					<p>{{ .Tribute }}</p>
 
@@ -80,41 +84,44 @@
 
 		{{ end }}
 
+		</div>
+
 	</div>
 
 	<!-- Modal -->
 <div class="modal fade" id="tributeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="background-color: transparent;">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add A Tribute</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title header" id="exampleModalLabel" style="color: #ffffff;">ADD A TRIBUTE</h5>
+        <button type="button" class="close" style="color: #FFFFFF;" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
         <form method="POST" action="" enctype="multipart/form-data">
 
+        	<input type="hidden" name="csrf_token" value="{{ .token }}">
+
       <div class="modal-body">
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Your Name:</label>
-            <input type="text" name="name" class="form-control" id="name">
+            <label for="recipient-name" class="col-form-label" style="color: #FFFFFF;">Your Name:</label>
+            <input type="text" name="name" class="form-control" id="name" required="required">
           </div>
           <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Who is Obed to You:</label>
-            <input type="text" name="relationship" class="form-control" id="relationship">
+            <label for="recipient-name" class="col-form-label" style="color: #FFFFFF;">Who is Obed to You:</label>
+            <input type="text" name="relationship" class="form-control" id="relationship" required="required">
           </div>
           <div class="form-group">
-          	<label for="image" class="col-form-label">Upload Your Profile Pic:</label>
+          	<label for="image" class="col-form-label" style="color: #FFFFFF;">Upload Your Profile Pic:</label>
           	<input type="file" name="profile" class="" id="image">
           </div>
           <div class="form-group">
-            <label for="message-text" class="col-form-label">Write a tribute:</label>
-            <textarea class="form-control" name="tribute" id="message-text"></textarea>
+            <label for="message-text" class="col-form-label" style="color: #FFFFFF;">Write a tribute:</label>
+            <textarea class="form-control" name="tribute" id="message-text" required="required"></textarea>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-sm" style="background-color: #FDBF2D;">Add A Tribute</button>
       </div>
         </form>
 
@@ -124,6 +131,23 @@
 
 <script src="/static/js/jquery-1.9.1.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/jquery.waypoints.js"></script>
+ <script src="/static/js/infinite.min.js"></script>
+
+ <script type="text/javascript">
+        
+
+         var infinite = new Waypoint.Infinite({
+          element: $('.infinite-container')[0],
+          onBeforePageLoad: function () {
+            $('.loading').show();
+          },
+          onAfterPageLoad: function ($items) {
+            $('.loading').hide();
+          }
+        });
+    </script>
+
 
 </body>
 </html>

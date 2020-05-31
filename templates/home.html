@@ -21,7 +21,7 @@
 	<div class="grey_color">
 
 	<nav class="navbar navbar-expand-lg container">
-		  <a class="navbar-brand dark_text_color" href="#"><i>RIP</i> OBED</a>
+		  <a class="navbar-brand dark_text_color" href="/"><i>RIP</i> OBED</a>
 		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
@@ -30,13 +30,13 @@
 		    
 		    <ul class="navbar-nav ml-auto">
 		    	<li class="nav-item">
-		        <a class="nav-link" href="/biography">Biography</a>
+		        <a class="nav-link dark_text_color" href="/biography">Biography</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/tributes">Tributes</a>
+		        <a class="nav-link dark_text_color" href="/tributes">Tributes</a>
 		      </li>
 		      <li class="nav-item">
-		        <a class="nav-link" href="#">Gallery</a>
+		        <a class="nav-link dark_text_color" href="/#gallery">Gallery</a>
 		      </li>
 		    </ul>
 		    
@@ -48,14 +48,44 @@
 		<div class="row">
 			<div class="col-sm-6 dark_text_color">
 				<div style="margin-top: 100px;">
-					<h2 class="text-center">A CELEBRATION OF LIFE</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<h2 class="text-center header">A CELEBRATION OF LIFE</h2>
+					<p>To everything there is a season,
+
+and a time for every purpose under heaven:
+
+a time to be born and a time to die,
+
+a time to plant and a time to uproot,
+
+a time to kill and a time to heal,
+
+a time to break down and a time to build,
+
+a time to weep and a time to laugh,
+
+a time to mourn and a time to dance,
+
+a time to cast away stones and a time to gather stones together,
+
+a time to embrace and a time to refrain from embracing,
+
+a time to search and a time to count as lost,
+
+a time to keep and a time to discard,
+
+a time to tear and a time to mend,
+
+a time to be silent and a time to speak,
+
+a time to love and a time to hate,
+
+a time for war and a time for peace.</p>
 					<p class="text-center" style="font-weight: bold;">OBED KWAME ADEMANG</p>
 					<p class="text-center" style="font-weight: bold;">1991 - 2020</p>
 				</div>
 			</div>
 			<div class="col-sm-6">
-				<img src="/static/img/header_image_1.png" class="float-right" alt="" height="450px">
+				<img src="/static/img/header_image_1.png" class="float-right" alt="" height="450px" style="margin-top: 20px;">
 			</div>
 		</div>
 	</div>
@@ -69,19 +99,19 @@
 				<img src="/static/img/header_image_2.png" class="" alt="" height="500px" style="margin-top: -60px;">
 				
 			</div>
-		<div class="col-sm" style="margin-top: 100px;">
+		<div class="col-sm" style="margin-top: 150px;">
 			<h4 class="text-center dark_text_color">TRIBUTES FROM FRIENDS &amp; FAMILY</h4>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 			<div class="row">
 				<div class="col-sm-1"></div>
 				<div class="col-sm-2">
-                    <img src="http://placehold.it/80" class="rounded-circle img-responsive" alt="" />
+                    <img src="/static/uploads/{{ .Profile }}" class="rounded-circle img-responsive" alt="" width="60px" height="60px" />
 
                 </div>
                 <div class="col-sm-8">
-                	<h4>Freda Asare</h4>
-                	<p>Friend from Campus (UCC)</p>
-					<button type="button" class="btn btn-dark btn-block">See All Tributes</button>
+                	<h4>{{ .Name }}</h4>
+                	<p>{{ .Relationship }}</p>
+					<a href="/tributes" class="btn btn-dark btn-block">See All Tributes</a>
 
                 </div>
                 <div class="col-sm-1"></div>
@@ -91,7 +121,7 @@
 		
 	</div>
 	
-	<div class="memories" style="margin-top: 50px; padding: 20px;">
+	<div class="memories" id="gallery" style="margin-top: 100px; padding: 20px;">
 		<h4 class="text-center dark_text_color">Memories We Will Never Forget</h4>
 		<div class="imgal-container" style="margin-top: 20px;">
 		  <img src="/static/img/grid1.jpeg" alt="" class="imgal-img">
@@ -99,13 +129,18 @@
 		  <img src="/static/img/grid3.jpeg" alt="" class="imgal-img">
 		  <img src="/static/img/grid4.jpeg" alt="" class="imgal-img">
 		  <img src="/static/img/grid5.jpeg" alt="" class="imgal-img">
-		  <img src="/static/img/grid6.jpeg" alt="" class="imgal-img">
+		  <img src="/static/img/grid9.jpeg" alt="" class="imgal-img">
+		  <img src="/static/img/grid11.jpeg" alt="" class="imgal-img">
+		  <img src="/static/img/grid12.jpeg" alt="" class="imgal-img">
+		  <img src="/static/img/grid13.jpeg" alt="" class="imgal-img">
+		  <img src="/static/img/grid14.jpeg" alt="" class="imgal-img">
 		</div>
 	</div>
 </div>
 
 <script src="/static/js/jquery-1.9.1.js"></script>
 <script src="/static/js/imgal.js"></script>
+
 
 </body>
 </html>

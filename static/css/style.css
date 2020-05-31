@@ -1,7 +1,20 @@
+@font-face {
+  font-family: "bebas";
+  src: local(/static/fonts/BebasNeue-Regular.ttf) format("truetype");
+}
+
+body {
+	font-style: Arial;
+}
+
 .grey_color {
 	background-color: #E4E4E4;
 }
 
 .dark_text_color {
 	color: #060606;
+}
+
+.header {
+	font-family: "bebas";
 }
