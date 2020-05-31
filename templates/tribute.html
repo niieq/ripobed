@@ -65,7 +65,13 @@
 						<div class="col-sm-12">
 							<div class="row">
 								<div class="col-sm-2">
-				                    <img src="/static/uploads/{{ .Profile }}" class="rounded-circle img-responsive" alt="" width="60px" height="60px" />
+
+									{{ if .Profile }}
+				                    	<img src="/static/uploads/{{ .Profile }}" class="rounded-circle img-responsive" alt="" width="60px" height="60px" />
+				                    {{ else }}
+										<img src="/static/img/user-male-circle-filled.png" width="60px" height="60px" alt="">
+
+				                    {{ end }}
 
 				                </div>
 				                <div class="col-sm-8">
@@ -92,7 +98,7 @@
 <div class="modal fade" id="tributeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content" style="background-color: transparent;">
-      <div class="modal-header">
+      <div class="modal-header" style="border-bottom: none;">
         <h5 class="modal-title header" id="exampleModalLabel" style="color: #ffffff;">ADD A TRIBUTE</h5>
         <button type="button" class="close" style="color: #FFFFFF;" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -120,7 +126,7 @@
             <textarea class="form-control" name="tribute" id="message-text" required="required"></textarea>
           </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" style="border-top: none !important;">
         <button type="submit" class="btn btn-sm" style="background-color: #FDBF2D;">Add A Tribute</button>
       </div>
         </form>
