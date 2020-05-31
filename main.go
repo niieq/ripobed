@@ -9,6 +9,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/justinas/nosurf"
 	"github.com/olahol/go-imageupload"
 )
 
@@ -53,13 +54,24 @@ func main() {
 
 	r := mainRouter()
 
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":8080", nosurf.New(r))
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 
+	db, err := gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
+	if err != nil {
+		fmt.Println(err.Error())
+		panic("failed to connect database")
+	}
+	defer db.Close()
+
+	var Tribute Tribute
+
+	db.Last(&Tribute)
+
 	tmpl := template.Must(template.ParseFiles("templates/home.html"))
-	tmpl.Execute(w, nil)
+	tmpl.Execute(w, Tribute)
 
 }
 
@@ -71,6 +83,8 @@ func biographHandler(w http.ResponseWriter, r *http.Request) {
 
 func tributeHandler(w http.ResponseWriter, r *http.Request) {
 
+	var image_path string
+
 	db, err := gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		fmt.Println(err.Error())
@@ -81,21 +95,28 @@ func tributeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 
 		r.ParseForm()
-		img, err := imageupload.Process(r, "profile")
 
-		if err != nil {
-			panic(err)
+		if r.Form["profile"][0] != "" {
+
+			img, err := imageupload.Process(r, "profile")
+
+			if err != nil {
+				panic(err)
+			}
+
+			thumb, err := imageupload.ThumbnailPNG(img, 60, 60)
+
+			if err != nil {
+				panic(err)
+			}
+
+			image_path = fmt.Sprintf("%d.png", time.Now().Unix())
+
+			thumb.Save("static/uploads/" + image_path)
+
+		} else {
+			image_path = ""
 		}
-
-		thumb, err := imageupload.ThumbnailPNG(img, 60, 60)
-
-		if err != nil {
-			panic(err)
-		}
-
-		image_path := fmt.Sprintf("%d.png", time.Now().Unix())
-
-		thumb.Save("static/uploads/" + image_path)
 
 		name := r.Form["name"][0]
 		relationship := r.Form["relationship"][0]
@@ -109,11 +130,16 @@ func tributeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/tributes", http.StatusSeeOther)
 
 	} else {
+
 		var Tributes []Tribute
 		db.Order("id desc").Find(&Tributes)
 
+		context := make(map[string]interface{})
+		context["token"] = nosurf.Token(r)
+		context["Tributes"] = Tributes
+
 		tmpl := template.Must(template.ParseFiles("templates/tribute.html"))
-		tmpl.Execute(w, Tributes)
+		tmpl.Execute(w, context)
 	}
 
 }
