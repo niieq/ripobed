@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -21,13 +22,23 @@ type Tribute struct {
 	Tribute      string
 }
 
-func initialMigration() {
-	db, err := gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
+var (
+	db *gorm.DB
+)
+
+func initDb() {
+
+	var err error
+
+	db, err = gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		fmt.Println(err.Error())
 		panic("failed to connect database")
 	}
-	defer db.Close()
+
+}
+
+func initialMigration() {
 
 	// Migrate the schema
 	db.AutoMigrate(&Tribute{})
@@ -52,19 +63,18 @@ func mainRouter() *mux.Router {
 
 func main() {
 
+	fmt.Println(os.Getenv("username"))
+
+	initDb()
+
 	r := mainRouter()
+
+	defer db.Close()
 
 	http.ListenAndServe(":8080", nosurf.New(r))
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-
-	db, err := gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		fmt.Println(err.Error())
-		panic("failed to connect database")
-	}
-	defer db.Close()
 
 	var Tribute Tribute
 
@@ -84,13 +94,6 @@ func biographHandler(w http.ResponseWriter, r *http.Request) {
 func tributeHandler(w http.ResponseWriter, r *http.Request) {
 
 	var image_path string
-
-	db, err := gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
-	if err != nil {
-		fmt.Println(err.Error())
-		panic("failed to connect database")
-	}
-	defer db.Close()
 
 	if r.Method == "POST" {
 
