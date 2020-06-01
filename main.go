@@ -21,7 +21,7 @@ type Tribute struct {
 	Name         string
 	Relationship string
 	Profile      string
-	Tribute      string
+	Tribute      string `gorm:"type:text"`
 }
 
 var (
