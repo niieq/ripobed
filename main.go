@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 	"os"
 	"time"
@@ -10,6 +11,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/joho/godotenv"
 	"github.com/justinas/nosurf"
 	"github.com/olahol/go-imageupload"
 )
@@ -28,11 +30,17 @@ var (
 
 func initDb() {
 
-	var err error
-
-	db, err = gorm.Open("mysql", "root@/ripobed?charset=utf8&parseTime=True&loc=Local")
+	err := godotenv.Load()
 	if err != nil {
-		fmt.Println(err.Error())
+		log.Fatal("Error loading .env file")
+	}
+
+	var db_err error
+
+	db, db_err = gorm.Open("mysql", fmt.Sprintf("%s:%s@(%s)/%s?charset=utf8&parseTime=True&loc=Local", os.Getenv("username"),
+		os.Getenv("password"), os.Getenv("host"), os.Getenv("db_name")))
+	if db_err != nil {
+		fmt.Println(db_err.Error())
 		panic("failed to connect database")
 	}
 
@@ -62,8 +70,6 @@ func mainRouter() *mux.Router {
 }
 
 func main() {
-
-	fmt.Println(os.Getenv("username"))
 
 	initDb()
 
