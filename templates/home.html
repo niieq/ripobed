@@ -101,11 +101,16 @@ a time for war and a time for peace.</p>
 			</div>
 		<div class="col-sm" style="margin-top: 150px;">
 			<h4 class="text-center dark_text_color">TRIBUTES FROM FRIENDS &amp; FAMILY</h4>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+			<p>{{ .Tribute }}</p>
 			<div class="row">
 				<div class="col-sm-1"></div>
 				<div class="col-sm-2">
-                    <img src="/static/uploads/{{ .Profile }}" class="rounded-circle img-responsive" alt="" width="60px" height="60px" />
+                    {{ if .Profile }}
+                    	<img src="/static/uploads/{{ .Profile }}" class="rounded-circle img-responsive" alt="" width="60px" height="60px" />
+                    {{ else }}
+						<img src="/static/img/user-male-circle-filled.png" width="60px" height="60px" alt="">
+
+                    {{ end }}
 
                 </div>
                 <div class="col-sm-8">
