@@ -101,6 +101,8 @@ a time for war and a time for peace.</p>
 			</div>
 		<div class="col-sm" style="margin-top: 150px;">
 			<h4 class="text-center dark_text_color">TRIBUTES FROM FRIENDS &amp; FAMILY</h4>
+
+			{{ if .Tribute }}
 			<p>{{ .Tribute }}</p>
 			<div class="row">
 				<div class="col-sm-1"></div>
@@ -121,6 +123,7 @@ a time for war and a time for peace.</p>
                 </div>
                 <div class="col-sm-1"></div>
 			</div>
+			{{ end }}
 		</div>
 		</div>
 		
