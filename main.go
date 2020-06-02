@@ -105,13 +105,13 @@ func tributeHandler(w http.ResponseWriter, r *http.Request) {
 
 		r.ParseForm()
 
-		if r.Form["profile"][0] != "" {
+		img, err := imageupload.Process(r, "profile")
 
-			img, err := imageupload.Process(r, "profile")
+		if err != nil {
 
-			if err != nil {
-				panic(err)
-			}
+			image_path = ""
+
+		} else {
 
 			thumb, err := imageupload.ThumbnailPNG(img, 60, 60)
 
@@ -123,8 +123,6 @@ func tributeHandler(w http.ResponseWriter, r *http.Request) {
 
 			thumb.Save("static/uploads/" + image_path)
 
-		} else {
-			image_path = ""
 		}
 
 		name := r.Form["name"][0]
