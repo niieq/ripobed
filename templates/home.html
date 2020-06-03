@@ -78,7 +78,7 @@
 			<p>{{ .Tribute }}</p>
 			<div class="row">
 				<div class="col-sm-1"></div>
-				<div class="col-sm-2">
+				<div class="col-sm-2 col-2">
                     {{ if .Profile }}
                     	<img src="/static/uploads/{{ .Profile }}" class="rounded-circle img-responsive" alt="" width="60px" height="60px" />
                     {{ else }}
@@ -87,7 +87,7 @@
                     {{ end }}
 
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-8 col-9">
                 	<h4>{{ .Name }}</h4>
                 	<p>{{ .Relationship }}</p>
 					<a href="/tributes" class="btn btn-dark btn-block">See All Tributes</a>
